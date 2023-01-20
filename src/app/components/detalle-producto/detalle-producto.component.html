@@ -1,0 +1,48 @@
+<div class="container mt-5" *ngIf="bicicletas">
+  <div>
+
+    <div class="row align-items-center" >
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-interval="false">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button *ngIf="bicicletas.image2" type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button *ngIf="bicicletas.image3" type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img style="max-width: 650px; max-height: 600px;" [src]="bicicletas.image" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" *ngIf="bicicletas.image2">
+              <img style="max-width: 650px; max-height: 600px;" [src]="bicicletas.image2" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" *ngIf="bicicletas.image3">
+              <img style="max-width: 650px; max-height: 600px;" [src]="bicicletas.image3" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          <button *ngIf="bicicletas.image2" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button *ngIf="bicicletas.image2" class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-6 p-4">
+        <h2 class="text-center fw-bold">{{bicicletas.name}}</h2>
+        <p>{{bicicletas.description}}</p>
+        <p class="ms-2 text-center fs-4 fw-bold">{{bicicletas.price}}€</p>
+        <div class="text-center">
+          <!-- <button class="btn btn-primary btn-sm me-1 mb-1" [routerLink]="['/cart', { id:bicicletas.id }]">AÑADIR AL CARRO | <i class="bi bi-cart"></i></button> -->
+          <!-- <button class="btn btn-primary btn-sm me-1 mb-1" (click)="addtoCart(bicicletas)">AÑADIR AL CARRO | <i class="bi bi-cart"></i></button> -->
+          <button class="btn btn-success btn-sm me-1 mb-1" [routerLink]="['/bicicletas']">VOLVER A LA TIENDA</button>
+          <button class="btn btn-primary btn-sm ms-1 mb-1" (click)="addtoCart(bicicletas)">AÑADIR AL CARRO | <i class="bi bi-cart"></i></button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+

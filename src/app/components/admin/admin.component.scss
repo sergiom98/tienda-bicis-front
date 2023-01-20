@@ -1,0 +1,12 @@
+a:hover {
+  cursor: pointer;
+}
+.boton-abajo {
+  position: fixed;
+  bottom: 75px;
+  right: 75px;
+}
+.boton-abajo .bi:hover {
+  transition: 0.3s;
+  font-size: 48px !important;
+}

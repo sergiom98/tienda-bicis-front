@@ -1,0 +1,125 @@
+<div id="nav-p">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['']">
+        <svg xmlns="http://www.w3.org/2000/svg" width="161" height="50" viewBox="0 0 451 110">
+        <text id="BIKEROOT" transform="matrix(1, 0, 0, -1, 0, 23)" fill="#14213D" font-size="97" font-family="Bauhaus93, 'Bauhaus 93'">
+        <tspan x="0" y="0">BIKEROOT</tspan></text>
+      </svg></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+
+        <div class="navbar-collapse row s">
+          <div class="col-12 col-lg-6 e">
+              <button *ngIf="auth.isLogged()" [routerLink]="['/admin']" class="btn btn-light btn-sm me-1"><a class="text-dark text-decoration-none">ADMIN</a></button>
+              <button *ngIf="!auth.isLogged()" (click)="modalService.open(modallogin, {centered: true})" class="btn btn-success btn-sm me-1"><a class="me-1 text-white text-decoration-none">Login</a></button>
+              <button *ngIf="auth.isLogged()" (click)="auth.logout()" class="btn btn-danger btn-sm"><a class="text-decoration-none text-light" >Logout</a></button>
+              <button *ngIf="!auth.isLogged()" (click)="modalService.open(modalregistro, {centered: true})" class="btn btn-primary btn-sm"><a>Registro</a></button>
+          </div>
+
+          <div class="col-12 col-lg-6 e d-flex align-items-center justify-content-between">
+            <div>
+              <a class="link-light iz" [routerLink]="['/bicicletas']">TIENDA </a>
+              <a class="link-light iz" [routerLink]="['/contacto']">CONTACTO </a>
+              <a><i class="bi bi-sun menu-luz text-light" style="font-size: 20px;"></i></a>
+            </div>
+
+            <div class="">
+              <ul class="list-group list-group-horizontal list-unstyled me-4 fs-5 fw-bold">
+                <li><div style="cursor:pointer;" [routerLink]="['cart']" class="position-relative">
+                  <img src="/assets/img/carts.png" style="width: 45px;" alt="">
+                  <div style="font-size: 15px;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">{{totalItem}}</div>
+                </div></li>
+              </ul>
+              <!-- <a class="me-2"><i class="bi bi-bag fs-5 fw-bold menu-cesta-iconos"></i></a> -->
+              <!-- <a><i class="bi bi-person-circle fs-5 fw-bolder menu-cesta-iconos"></i></a> -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <img id="img-fondo" src="../../../assets/img/nav-fondo.png" alt="">
+
+  <!-- <img id="logo" src="../../../assets/img/BIKEROOT@2x.png" alt=""> -->
+</div>
+
+<ng-template #modallogin let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Login</h4>
+    <button type="button" class="btn btn-danger" aria-label="Close" (click)="modal.dismiss()">
+      <i class="bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #formlogin="ngForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <div class="mb-3">
+          <label for="emaillogin" class="form-label">Usuario</label>
+          <input #nameloginModel="ngModel" [(ngModel)]="usuario.correo"
+            [ngClass]="form.validClasses(nameloginModel, 'is-valid', 'is-invalid')" name="correo" type="text"
+            class="form-control" id="emaillogin" type="email" placeholder="Escribe tu correo" required>
+        </div>
+        <div class="mb-3">
+          <label for="passwordlogin" class="form-label">Contraseña</label>
+          <input #passloginModel="ngModel" [(ngModel)]="usuario.password"
+            [ngClass]="form.validClasses(passloginModel, 'is-valid', 'is-invalid')" name="password" type="password"
+            class="form-control" id="passwordlogin" placeholder="Introduce tu contraseña" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #modalregistro let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Registro</h4>
+    <button type="button" class="btn btn-danger" aria-label="Close" (click)="modal.dismiss()">
+      <i class="bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #formRegistro="ngForm" (ngSubmit)="registrarse()">
+      <div class="form-group">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input #nameModel="ngModel" [(ngModel)]="usuario.nombre"
+            [ngClass]="form.validClasses(nameModel, 'is-valid', 'is-invalid')" name="nombre" type="text"
+            class="form-control" id="nombre" placeholder="Escribe tu nombre" required>
+        </div>
+        <div class="mb-3">
+          <label for="emailregistro" class="form-label">Email</label>
+          <input #emailModel="ngModel" [(ngModel)]="usuario.correo"
+            [ngClass]="form.validClasses(emailModel, 'is-valid', 'is-invalid')" name="email" type="email" name="email"
+            class="form-control" id="email" placeholder="Escribe tu email" required>
+        </div>
+        <div class="mb-3">
+          <label for="emailconfirm" class="form-label">Email de confirmación</label>
+          <input #emailconfirmModel="ngModel" [(ngModel)]="emailconfirm"
+            [ngClass]="form.validClasses(emailModel, 'is-valid', 'is-invalid')" name="emailconfirm" type="email"
+            class="form-control" id="emailconfirm" placeholder="Escribe tu email para confirmar" required>
+        </div>
+        <div class="mb-3">
+          <label for="passwordsingup" class="form-label">Contraseña</label>
+          <input #passModel="ngModel" [(ngModel)]="usuario.password"
+            [ngClass]="form.validClasses(passModel, 'is-valid', 'is-invalid')" name="password" type="password"
+            class="form-control" id="passwordsingup" placeholder="Introduce tú contraseña" required>
+        </div>
+        <!-- <div class="mb-3">
+          <label for="image" class="form-label">Imagen avatar</label>
+          <input #avatarFile (change)="imagen.actualiza(avatarFile, usuario, 'avatar')" #imageModel="ngModel"
+            [(ngModel)]="usuario.avatar" [ngClass]="form.validClasses(imageModel, 'is-valid', 'is-invalid')"
+            name="image" type="file" class="form-control" id="image" placeholder="Introduce tu avatar" required>
+        </div> -->
+        <!-- <div mt-2 mb-2>
+          <img [src]="usuario.avatar" class="img-thumbnail" *ngIf="usuario.avatar">
+        </div> -->
+        <button [disabled]="formRegistro.invalid" type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

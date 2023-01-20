@@ -1,0 +1,33 @@
+// /* bicis */
+.card {
+  position: relative;
+  cursor: pointer;
+}
+.card:hover {
+  transition: 0.5s;
+  border: 2px solid rgb(196, 184, 184);
+  width: 14.5rem !important;
+  .back {
+    display: block !important;
+  }
+  .card-body {
+    display: none !important;
+  }
+}
+.back {
+  display: none !important;
+}
+.list-group-item:hover {
+  cursor: pointer;
+}
+
+.boton-abajo {
+  position: fixed;
+  bottom: 75px;
+  right: 75px;
+}
+.boton-abajo .bi:hover {
+  transition: 0.3s;
+  font-size: 48px !important;
+}
+

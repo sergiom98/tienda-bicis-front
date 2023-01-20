@@ -1,0 +1,235 @@
+<div class="container d-flex flex-column">
+
+  <ng-template #modalBici let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">AÑADIR BICICLETA</h4>
+      <button type="button" class="btn btn-danger" aria-label="Close" (click)="modal.dismiss()">
+        <i class="bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #formEvento="ngForm" formlogin="ngForm" class="mt-4" (ngSubmit)="addBicicleta()">
+        <div class="mb-3">
+          <label for="categoria" class="form-label">Categoria: </label>
+          <input [ngClass]="form.validClasses(catModel, 'is-valid', 'is-invalid')" #catModel="ngModel" type="number"
+            class="form-control" [(ngModel)]="bicicleta.categoria.id" id="categoria" name="categoria" placeholder="Introduce la categoría"
+            required min="1" max="30">
+            <div class="invalid-feedback" *ngIf="catModel.errors && catModel.errors.required">
+              Debes proporcionar una categoría
+            </div>
+        </div>
+        <div class="mb-3">
+          <label for="title" class="form-label">Título</label>
+          <input [ngClass]="form.validClasses(titleModel, 'is-valid', 'is-invalid')" #titleModel="ngModel" type="text"
+            class="form-control" [(ngModel)]="bicicleta.name" id="title" name="title" placeholder="Introduce el título"
+            required minlength="5">
+          <div class="invalid-feedback" *ngIf="titleModel.errors && titleModel.errors.required">
+            Debes proporcionar un título
+          </div>
+          <div class="invalid-feedback" *ngIf="titleModel.errors && titleModel.errors.minlength">
+            Al campo le faltan al menos
+            {{titleModel.errors.minlength.requiredLength - titleModel.errors.minlength.actualLength}}
+            caracteres
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <input [ngClass]="form.validClasses(descModel, 'is-valid', 'is-invalid')" #descModel="ngModel" type="text"
+            class="form-control" [(ngModel)]="bicicleta.description" id="description" name="description"
+            placeholder="Describe el evento" required minlength="10">
+          <div class="invalid-feedback" *ngIf="descModel.errors && descModel.errors">
+            Debes proporcionar una descripción
+          </div>
+          <div class="invalid-feedback" *ngIf="descModel.errors && descModel.errors.minlength">
+            Al campo le faltan al menos
+            {{descModel.errors.minlength.requiredLength - descModel.errors.minlength.actualLength}}
+            caracteres
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Precio</label>
+          <input [ngClass]="form.validClasses(priceModel, 'is-valid', 'is-invalid')" #priceModel="ngModel" type="number"
+            class="form-control" [(ngModel)]="bicicleta.price" id="price" name="price" placeholder="Indica el precio"
+            required min="1" max="10000">
+          <div class="invalid-feedback" *ngIf="priceModel.errors && priceModel.errors.required">
+            Debes proporcionar un precio
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Imagen</label>
+          <input [ngClass]="form.validClasses(imageModel, 'is-valid', 'is-invalid')" #imageModel="ngModel" #fileImage
+            (change)="imagen.actualiza(fileImage, bicicleta, 'evento')" [(ngModel)]="fileName" type="file" class="form-control"
+            id="image" name="image" required />
+          <div class="invalid-feedback" *ngIf="imageModel.errors && imageModel.errors.required">
+            Debes proporcionar una imagen
+          </div>
+          <img [src]="bicicleta.image" alt="" class="img-thumbnail" [ngClass]="{'d-none': !fileName}">
+        </div>
+        <div class="mb-3">
+          <label for="image2" class="form-label">Imagen2: (opcional)</label>
+          <input [ngClass]="form.validClasses(imageModel2, 'is-valid', 'is-invalid')" #imageModel2="ngModel" #fileImage2
+            (change)="imagen.actualiza2(fileImage2, bicicleta, 'evento2')" [(ngModel)]="fileName2" type="file" class="form-control"
+            id="image2" name="image2"/>
+          <img [src]="bicicleta.image2" alt="" class="img-thumbnail" [ngClass]="{'d-none': !fileName2}">
+        </div>
+        <div class="mb-3">
+          <label for="image3" class="form-label">Imagen3: (opcional)</label>
+          <input [ngClass]="form.validClasses(imageModel3, 'is-valid', 'is-invalid')" #imageModel3="ngModel" #fileImage3
+            (change)="imagen.actualiza3(fileImage3, bicicleta, 'evento3')" [(ngModel)]="fileName3" type="file" class="form-control"
+            id="image3" name="image3"/>
+          <img [src]="bicicleta.image3" alt="" class="img-thumbnail" [ngClass]="{'d-none': !fileName3}">
+        </div>
+
+
+
+        <!-- <div class="mb-3">
+          <label for="date" class="form-label">Fecha del evento</label>
+          <input [min]="fechaHoy" #dateModel="ngModel" [ngClass]="form.validClasses(dateModel, 'is-valid', 'is-invalid')"
+            type="date" class="form-control" [(ngModel)]="bicicleta.date" id="date" name="date" required>
+          <div class="invalid-feedback" *ngIf="dateModel.errors && dateModel.errors.required">
+            Debes proporcionar fecha
+          </div>
+        </div> -->
+        <button class="btn btn-primary" type="submit" [disabled]="formEvento.invalid">
+          Añadir
+        </button>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #modalCat let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">AÑADIR CATEGORÍA</h4>
+      <button type="button" class="btn btn-danger" aria-label="Close" (click)="modal.dismiss()">
+        <i class="bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #formEvento="ngForm" formlogin="ngForm" class="mt-4" (ngSubmit)="addCategoria()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre de la categoría: </label>
+          <input [ngClass]="form.validClasses(nameModel, 'is-valid', 'is-invalid')" #nameModel="ngModel" type="text"
+            class="form-control" [(ngModel)]="categoria.name" id="name" name="name" placeholder="Introduce el nombre de la categoría"
+            required minlength="5">
+          <div class="invalid-feedback" *ngIf="nameModel.errors && nameModel.errors.required">
+            Debes proporcionar un título
+          </div>
+          <div class="invalid-feedback" *ngIf="nameModel.errors && nameModel.errors.minlength">
+            Al campo le faltan al menos
+            {{nameModel.errors.minlength.requiredLength - nameModel.errors.minlength.actualLength}}
+            caracteres
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="formEvento.invalid">
+          Añadir
+        </button>
+      </form>
+    </div>
+  </ng-template>
+
+
+  <h3 class="my-4">LISTA DE BICICLETAS</h3>
+  <nav class="navbar flex-column navbar-light">
+    <div class="container-fluid">
+      <div>
+        <button class="btn btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        FILTRO <span class="navbar-toggler-icon"></span></button>
+        <button *ngIf="auth.isLogged()" class="text-start btn btn-primary btn-sm ms-1"><a class="text-decoration-none text-light" (click)="modalService.open(modalBici, {centered: true})">AÑADIR BICICLETA</a></button>
+        <button *ngIf="auth.isLogged()" class="text-start btn btn-primary btn-sm ms-1"><a class="text-decoration-none text-light" (click)="modalService.open(modalCat, {centered: true})">AÑADIR CATEGORIA</a></button>
+      </div>
+      <form class="d-flex position-relative">
+        <input [(ngModel)]="back.buscar"
+          name="buscar"
+          class="form-control"
+          type="search"
+          placeholder="Buscar bicicleta: "
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-dark position-absolute end-0" type="submit"><i class="bi-search"></i></button>
+      </form>
+    </div>
+  </nav>
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="p-4">
+      <div class="list-group">
+        <a (click)="obtenerBicicletas()" class="list-group-item list-group-item-action">Todas las bicicletas</a>
+        <a  *ngFor="let categoria of categorias; let i=index" (click)="obtenerBicicletasPorCategoria(i+1)" class="list-group-item list-group-item-action">{{categoria.name}}</a>
+      </div>
+    </div>
+</div>
+<div class="card-block">
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Id | Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="bicicletas.length > 0; else sinBicicletas">
+        <tr *ngFor="let bicicleta of bicicletas | bicicletaFilter:back.buscar">
+          <td>
+          <div id="carouselExampleDark" class="carousel carousel-dark slide" style="max-width: 150px; max-height:150px;" data-bs-interval="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button *ngIf="bicicleta.image2" type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button *ngIf="bicicleta.image3" type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img style="max-width: 300px; max-height:130px;" [src]="bicicleta.image" class="d-block" alt="Bicicleta1">
+              </div>
+              <div class="carousel-item" *ngIf="bicicleta.image2">
+                <img style="max-width: 300px; max-height:130px;" [src]="bicicleta.image2" class="d-block" alt="Bicicleta2">
+              </div>
+              <div class="carousel-item" *ngIf="bicicleta.image3">
+                <img style="max-width: 300px; max-height:130px;" [src]="bicicleta.image3" class="d-block" alt="Bicicleta3">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
+          </div>
+          </td>
+          <td>{{bicicleta.id}} | {{bicicleta.name}}</td>
+          <td class="text-truncate" style="max-width: 150px;">{{bicicleta.description}}</td>
+          <td>{{bicicleta.price}}€</td>
+          <td><button class="btn btn-danger me-1" (click)="borrarBicicleta(bicicleta.id)"><i class="bi bi-trash-fill"></i></button><button [routerLink]="['/bicicletas', bicicleta.id]" class="btn btn-success">
+            <i class="bi bi-pencil-square"></i></button>
+          </td>
+          <!-- <td>{{bicicleta.categoria}}</td> -->
+          <!-- <td>{{bicicleta.available | date: 'dd/MM/yyyy'}}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  <!-- <div *ngIf="bicicletas.length > 0; else sinBicicletas">
+    <div class="container d-flex flex-wrap justify-content-center justify-content-xll-start">
+      <div *ngFor="let bicicleta of bicicletas">
+        <div [routerLink]="['/bicicletas', bicicleta.id]" class="card my-2 mx-3" style="width: 15rem;">
+          <img [src]="bicicleta.image" class="card-img-top" alt="Bicicleta">
+          <div class="back">
+            <h5 class="card-title text-center">VER DETALLES</h5>
+            <div class="card-text text-center"><i class="bi bi-arrow-up-right-square"></i></div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">{{bicicleta.name}}</h5>
+            <hr>
+            <div class="card-text text-center">{{bicicleta.price}}€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div *ngIf="showButton" (click)="onScrollTop()" class="boton-abajo" style="cursor:pointer;"><i class="bi bi-arrow-up-square-fill" style="font-size: 45px;"></i></div>
+  <ng-template #sinBicicletas><h2 class="mt-2">No hay bicicletas de esta categoría</h2></ng-template>
+</div>

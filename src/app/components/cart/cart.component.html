@@ -1,0 +1,48 @@
+<div class=" mt-5 container text-center" *ngIf="product.length == 0">
+  <h3>Tu cesta esta vacía.</h3>
+  <h4>Vuelve a la tienda para seguir comprando</h4>
+  <button class="btn btn-primary" [routerLink]="['/bicicletas']">TIENDA</button>
+</div>
+
+<div class="container" *ngIf="product.length != 0">
+  <div style="max-height: calc(100vh - 160px);" class="card-block overflow-auto p-2">
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Id | Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <!-- <tbody *ngIf="bicicletas.length > 0; else sinBicicletas"> -->
+        <tbody>
+          <tr *ngFor="let item of product">
+            <td>
+                <div class="">
+                  <img style="max-width: 150px; max-height:150px;" [src]="item.image" class="d-block img-fluid" alt="Bicicleta1">
+                </div>
+            </td>
+            <td>{{item.id}} | {{item.name}}</td>
+            <td>{{item.price}}€</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.total}}€</td>
+            <td><button class="btn btn-danger me-1" (click)="removeItem(item)"><i class="bi bi-trash-fill"></i></button>
+            </td>
+            <!-- <td>{{bicicleta.categoria}}</td> -->
+            <!-- <td>{{bicicleta.available | date: 'dd/MM/yyyy'}}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="container d-flex justify-content-end">
+    <button class="btn btn-primary me-1" [routerLink]="['/bicicletas']" >Volver a la tienda</button>
+    <button class="btn btn-danger" (click)="emptyCart()">Eliminar todo</button>
+    <h4 class="mx-2"> Total: {{grandTotal | number}}€ </h4>
+  </div>
+</div>
+

@@ -1,0 +1,65 @@
+#rueda-derecha, #rueda-izquierda {
+  animation: rueda 2s infinite linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes rueda {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+.cs {
+  max-width: 900px;
+  // svg {
+  //   width: 100%;
+  //   height: 100%;
+  // }
+  .formulario-caja {
+    background-color: #10742960;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 10px;
+    width: 60% ;
+  }
+  h2 {
+    font-family: 'Architects Daughter', cursive;
+  }
+  form label {
+    font-family: 'Architects Daughter', cursive;
+    // font-weight: bold;
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cs {
+    display: flex !important;
+    flex-direction: column;
+    div {
+      position: relative !important;
+      width: 100% !important;
+    }
+    .formulario-caja {
+      top: -150px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .cs {
+    display: flex !important;
+    flex-direction: column;
+    .imagen-caja {
+      display: none;
+    }
+    .formulario-caja {
+      top: 0 !important;
+    }
+  }
+}
+
+

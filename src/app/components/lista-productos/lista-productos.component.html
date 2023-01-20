@@ -1,0 +1,63 @@
+<h2 class="text-center my-4">CATÁLOGO DE BICICLETAS</h2>
+
+  <div class="container d-flex flex-column position-relative">
+
+    <nav class="navbar flex-column navbar-light">
+      <div class="container-fluid">
+        <button class="btn btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        FILTRO <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="d-flex position-relative">
+          <input [(ngModel)]="back.buscar"
+            name="buscar"
+            class="form-control"
+            type="search"
+            placeholder="Buscar bicicleta: "
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-dark position-absolute end-0" type="submit"><i class="bi-search"></i></button>
+        </form>
+      </div>
+    </nav>
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="p-4">
+        <div class="list-group">
+          <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            The current link item
+          </a> -->
+          <a (click)="obtenerBicicletas()" class="list-group-item list-group-item-action">Todas las bicicletas</a>
+          <a (click)="obtenerBicicletasPorCategoria(1)" class="list-group-item list-group-item-action">Bicicletas de montaña</a>
+          <a (click)="obtenerBicicletasPorCategoria(2)" class="list-group-item list-group-item-action">Bicicletas de carretera</a>
+          <a (click)="obtenerBicicletasPorCategoria(3)" class="list-group-item list-group-item-action">Bicicletas eléctricas</a>
+          <a (click)="obtenerBicicletasPorCategoria(4)" class="list-group-item list-group-item-action">Bicicletas BMX</a>
+          <a (click)="obtenerBicicletasPorCategoria(5)" class="list-group-item list-group-item-action">Bicicletas infantiles</a>
+        </div>
+      </div>
+  </div>
+
+    <div *ngIf="bicicletas.length > 0; else sinBicicletas">
+      <div class="container d-flex flex-wrap justify-content-center justify-content-xll-start">
+        <div *ngFor="let bicicleta of bicicletas | bicicletaFilter:back.buscar">
+          <div [routerLink]="['/bicicletas', bicicleta.id]" class="card my-2 mx-3" style="width: 15rem;">
+            <img [src]="bicicleta.image" class="card-img-top" alt="Bicicleta">
+            <div class="back">
+              <h5 class="card-title text-center">VER DETALLES</h5>
+              <div class="card-text text-center"><i class="bi bi-arrow-up-right-square"></i></div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">{{bicicleta.name}}</h5>
+              <hr>
+              <div class="card-text text-center">{{bicicleta.price}}€</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #sinBicicletas><h2 class="mt-2">No hay bicicletas de esta categoría</h2></ng-template>
+
+  </div>
+  <div *ngIf="showButton" (click)="onScrollTop()" class="boton-abajo" style="cursor:pointer;"><i class="bi bi-arrow-up-square-fill" style="font-size: 45px;"></i></div>
+
+
+
+
